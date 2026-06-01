@@ -50,4 +50,6 @@ impl AppMain for App {
 
 fn main() {
     app_main!(App);
+    // call the generated `app_main()` to start the app/event loop
+    app_main();
 }
