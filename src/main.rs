@@ -5,15 +5,22 @@ live_design! {
     use link::widgets::*;
 
     App = {{App}} {
-        ui: <Root> {
-            <Window> {
-                window: {inner_size: vec2(800., 600.)}, // Opcjonalnie: rozmiar okna
-                body = <View> {
-                    flow: Down, spacing: 20, padding: 20
-                    label = <Label> {
-                        draw_text: { color: #0f0 }, // Zielony tekst, by był widoczny
-                        text: "PinPonCAD"
-                    }
+        ui: <Window> {
+            show_bg: true,
+            draw_bg: {
+                color: #000000 // Kolor tła głównego okna
+            }
+            window: {inner_size: vec2(800., 600.), title: "PinPonCAD"},
+            caption_bar = {
+                caption_label = {
+                    label = {text: "PinPonCAD"}
+                }
+            }
+            body = <View> {
+                flow: Down, spacing: 20, padding: 20
+                label = <Label> {
+                    draw_text: { color: #0f0 },
+                    text: "PinPonCAD"
                 }
             }
         }
@@ -34,7 +41,6 @@ impl LiveRegister for App {
 
 impl AppMain for App {
     fn handle_event(&mut self, cx: &mut Cx, event: &Event) {
-        // 1. Obsługa rysowania okna (Kluczowy brakujący krok!)
         if let Event::Draw(draw_event) = event {
             let mut cx_draw = CxDraw::new(cx, draw_event);
             let mut cx2d = Cx2d::new(&mut cx_draw);
@@ -43,7 +49,6 @@ impl AppMain for App {
             return;
         }
 
-        // 2. Obsługa pozostałych zdarzeń
         self.ui.handle_event(cx, event, &mut Scope::empty());
     }
 }
