@@ -18,9 +18,13 @@ live_design! {
             }
             body = <View> {
                 flow: Down, spacing: 20, padding: 20
-                label = <Label> {
+                label_text = <Label> {
                     draw_text: { color: #0f0 },
-                    text: "PinPonCAD"
+                    text: "Testowa aplikacja PinPonCAD"
+                }
+                button_1 = <Button> {
+                    draw_bg: { color: #00f },
+                    text: "Kliknij mnie!"
                 }
             }
         }
@@ -39,8 +43,19 @@ impl LiveRegister for App {
     }
 }
 
+impl MatchEvent for App {
+    fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
+        let button_1 = self.ui.button(id!(button_1));
+        if button_1.clicked(&actions) {
+            println!("Przycisk został kliknięty!");
+        }
+        button_1.set_text(cx, "Hello, World!");
+    }
+}
+
 impl AppMain for App {
     fn handle_event(&mut self, cx: &mut Cx, event: &Event) {
+        // Drawing the UI
         if let Event::Draw(draw_event) = event {
             let mut cx_draw = CxDraw::new(cx, draw_event);
             let mut cx2d = Cx2d::new(&mut cx_draw);
