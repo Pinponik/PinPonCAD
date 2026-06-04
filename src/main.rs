@@ -50,7 +50,6 @@ impl MatchEvent for App {
             println!("Button clicked!");
         }
         button_1.set_text(cx, "Hello, World!");
-        cx.request_draw();
     }
 }
 
@@ -70,7 +69,9 @@ impl AppMain for App {
 }
 
 fn main() {
-    app_main!(App);
     // call the generated `app_main()` to start the app/event loop
     app_main();
 }
+
+// Register the app type for the generated `app_main()` function.
+app_main!(App);
