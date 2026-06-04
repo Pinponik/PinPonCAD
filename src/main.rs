@@ -20,11 +20,11 @@ live_design! {
                 flow: Down, spacing: 20, padding: 20
                 label_text = <Label> {
                     draw_text: { color: #0f0 },
-                    text: "Testowa aplikacja PinPonCAD"
+                    text: "PinPonCAD test app"
                 }
                 button_1 = <Button> {
                     draw_bg: { color: #00f },
-                    text: "Kliknij mnie!"
+                    text: "Click me"
                 }
             }
         }
@@ -47,9 +47,10 @@ impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         let button_1 = self.ui.button(id!(button_1));
         if button_1.clicked(&actions) {
-            println!("Przycisk został kliknięty!");
+            println!("Button clicked!");
         }
         button_1.set_text(cx, "Hello, World!");
+        cx.request_draw();
     }
 }
 
