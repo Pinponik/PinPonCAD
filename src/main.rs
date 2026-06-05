@@ -51,7 +51,7 @@ impl MatchEvent for App {
             let button_1 = self.ui.button(id!(button_1));
             button_1.set_text(cx, "Hello, World!");
         }
-        self.redraw(cx);
+        self.ui.redraw(cx);
     }
 }
 
