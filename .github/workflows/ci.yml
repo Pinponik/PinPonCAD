@@ -23,7 +23,7 @@ jobs:
       - name: Install Rust (stable + clippy)
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: nightly
           components: clippy
           profile: minimal
 
@@ -57,7 +57,7 @@ jobs:
       - name: Install Rust (stable)
         uses: actions-rs/toolchain@v1
         with:
-          toolchain: stable
+          toolchain: nightly
           profile: minimal
 
       - name: Build release
