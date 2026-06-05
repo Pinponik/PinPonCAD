@@ -46,10 +46,12 @@ impl LiveRegister for App {
 impl MatchEvent for App {
     fn handle_actions(&mut self, cx: &mut Cx, actions: &Actions) {
         let button_1 = self.ui.button(id!(button_1));
-        if button_1.clicked(&actions) {
+        if self.ui.button(id!(button_1)).clicked(&actions) {
             println!("Button clicked!");
+            let button_1 = self.ui.button(id!(button_1));
+            button_1.set_text(cx, "Hello, World!");
         }
-        button_1.set_text(cx, "Hello, World!");
+        self.redraw(cx);
     }
 }
 
