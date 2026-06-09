@@ -8,18 +8,7 @@ live_design! {
         ui: <Window> {
             show_bg: true,
             draw_bg: {
-                fn pixel(self) -> vec4 {
-                    let color_center = #fff;
-                    let color_edge = #ff0;
-
-                    let uv = self.pos - vec2(0.5, 0.5);
-
-                    let dist = length(uv) * 2.0;
-
-                    let factor = clamp(dist, 0.0, 1.0);
-
-                    return mix(color_center, color_edge, factor);
-                }
+                color: #0
             }
             window: {inner_size: vec2(800., 600.), title: "PinPonCAD"},
             caption_bar = {
@@ -68,8 +57,7 @@ impl MatchEvent for App {
 
 impl AppMain for App {
     fn handle_event(&mut self, cx: &mut Cx, event: &Event) {
-        let button_1 = self.ui.button(id!(button_1));
-        button_1.handle_event(cx, event, &mut Scope::empty());
+        self.match_event(cx, event);
 
         if let Event::Draw(draw_event) = event {
             let mut cx_draw = CxDraw::new(cx, draw_event);
