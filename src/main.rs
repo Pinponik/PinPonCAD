@@ -5,26 +5,28 @@ live_design! {
     use link::widgets::*;
 
     App = {{App}} {
-        ui: <Window> {
-            show_bg: true,
-            draw_bg: {
-                color: #0
-            }
-            window: {inner_size: vec2(800., 600.), title: "PinPonCAD"},
-            caption_bar = {
-                caption_label = {
-                    label = {text: "PinPonCAD"}
+        ui: <Root> {
+            main_window: <Window> {
+                show_bg: true,
+                draw_bg: {
+                    color: #0
                 }
-            }
-            body = <View> {
-                flow: Down, spacing: 20, padding: 20
-                label_text = <Label> {
-                    draw_text: { color: #0f0 },
-                    text: "PinPonCAD test app"
+                window: {inner_size: vec2(800., 600.), title: "PinPonCAD"},
+                caption_bar = {
+                    caption_label = {
+                        label = {text: "PinPonCAD"}
+                    }
                 }
-                button_1 = <Button> {
-                    draw_bg: { color: #00f },
-                    text: "Click me"
+                body = <View> {
+                    flow: Down, spacing: 20, padding: 20
+                    label_text = <Label> {
+                        draw_text: { color: #0f0 },
+                        text: "PinPonCAD test app"
+                    }
+                    button_1 = <Button> {
+                        draw_bg: { color: #00f },
+                        text: "Click me"
+                    }
                 }
             }
         }
@@ -51,7 +53,6 @@ impl MatchEvent for App {
             button_1.set_text(cx, "Hello, World!");
             button_1.redraw(cx);
         }
-        //self.ui.redraw(cx);
     }
 }
 
@@ -71,6 +72,44 @@ impl AppMain for App {
     }
 }
 
+// CADViewport3D
+
+#[derive(Live, Widget)]
+pub struct CadViewport3D {
+    #[deref]
+    view: View,
+    #[walk]
+    walk: Walk,
+    #[layout]
+    layout: Layout,
+
+    #[rust]
+    camera_zoom: f32,
+    #[rust]
+    camera_rotation: Vec2,
+    #[rust]
+    pan_offset: Vec3,
+}
+
+impl Widget for CadViewport3D {
+    fn handle_event(&mut self, cx: &mut Cx, event: &Event, scope: &mut Scope) {
+        self.view.handle_event(cx, event, scope);
+    }
+
+    fn draw_walk(&mut self, cx: &mut Cx2d, scope: &mut Scope, walk: Walk) -> DrawStep {
+        self.view.draw_walk(cx, scope, walk)
+    }
+}
+
+impl LiveHook for CadViewport3D {
+    fn after_new_from_doc(&mut self, _cx: &mut Cx) {
+        self.camera_zoom = 50.0;
+        self.camera_rotation = vec2(-30.0, 45.0);
+        self.pan_offset = vec3(0.0, 0.0, 0.0);
+    }
+}
+
+// main
 fn main() {
     // call the generated `app_main()` to start the app/event loop
     app_main();
