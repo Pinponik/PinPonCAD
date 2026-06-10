@@ -1,7 +1,11 @@
 [package]
-name = "PinPonCAD"
+name = "pinponcad"
 version = "0.1.0"
 edition = "2021"
 
 [dependencies]
 makepad-widgets = "1.0.0"
+
+[[bin]]
+name = "pinponcad"
+path = "src/main.rs"
