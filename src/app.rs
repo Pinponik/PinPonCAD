@@ -7,11 +7,14 @@ pub struct App {
 }
 
 live_design! {
+    use link::theme::*;
+    use link::shaders::*;
+    use link::widgets::*;
     use makepad_widgets::theme_desktop_dark::*;
 
     App = {{App}} {
         ui: <Root> {
-            main_window: <Window> {
+            main_window = <Window> {
                 show_bg: true,
                 draw_bg: {
                     color: #0
@@ -50,7 +53,6 @@ impl MatchEvent for App {
             println!("Button clicked!");
             let button_1 = self.ui.button(id!(button_1));
             button_1.set_text(cx, "Hello, World!");
-            button_1.redraw(cx);
         }
     }
 }
@@ -70,3 +72,5 @@ impl AppMain for App {
         self.ui.handle_event(cx, event, &mut Scope::empty());
     }
 }
+
+app_main!(App);
