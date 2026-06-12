@@ -1,3 +1,5 @@
+pub mod viewport;
+use crate::viewport::CadViewport3D;
 use makepad_widgets::*;
 
 #[derive(Live, LiveHook)]
@@ -36,6 +38,7 @@ live_design! {
                         text: "Click me"
                     }
                 }
+                viewport = {{CadViewport3D}}
             }
         }
     }
